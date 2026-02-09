@@ -1,0 +1,30 @@
+name: PHP Lint
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '0 9 * * *'  # 每天上午 9 点 UTC
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0'
+    
+    - name: Check PHP syntax
+      run: |
+        echo "Checking PHP files syntax..."
+        for file in $(find . -name "*.php" -type f -not -path "./.git/*"); do
+          echo "Checking $file"
+          php -l "$file" || exit 1
+        done
+        echo "All PHP files have valid syntax!"
