@@ -13,12 +13,12 @@ $lunar = $lunar->convertSolarToLunar(date('Y'), date('m'), date('d'));
 $data = [
     'msgtype' => 'markdown',
     'markdown' => [
-        'title' => '炉石早报',
+        'title' => '车队早报',
         'text' => ''
     ]
 ];
 $message = [ // 消息详情
-    '各位炉石科技的伙伴们早上好！'
+    '各位伙伴们早上好！'
 ];
 
 /**
@@ -52,7 +52,7 @@ $xml = iconv('gb2312', 'utf-8//IGNORE', $c->get());
 
 preg_match_all('|<title>(.*?)</title>\s*<link>(.*?)</link>|', $xml, $results);
 $markdown = '';
-for ($i=1; $i<6; $i++){ // 取前5条新闻
+for ($i=1; $i<11; $i++){ // 取前10条新闻
     $markdown .= "{$i}. [{$results[1][$i]}]({$results[2][$i]})" . '\r\n';
 }
 $message[] = $markdown;
